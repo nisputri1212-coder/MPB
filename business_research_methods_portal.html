@@ -1,0 +1,704 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Portal Pembelajaran MPB - Metode Penelitian Bisnis</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <style>
+        body { font-family: 'Inter', sans-serif; }
+        .tab-active { background-color: #312e81; border-left: 4px solid #818cf8; color: white; }
+        .tab-inactive { color: #a5b4fc; border-left: 4px solid transparent; }
+        .tab-inactive:hover { background-color: #3730a3; color: white; }
+        .hide { display: none; }
+        .custom-scrollbar::-webkit-scrollbar { width: 6px; height: 6px; }
+        .custom-scrollbar::-webkit-scrollbar-track { background: #f1f1f1; }
+        .custom-scrollbar::-webkit-scrollbar-thumb { background: #c7c7cc; border-radius: 4px; }
+        .custom-scrollbar::-webkit-scrollbar-thumb:hover { background: #a1a1aa; }
+    </style>
+</head>
+<body class="bg-gray-50 h-screen flex overflow-hidden">
+
+    <!-- Sidebar Navigation -->
+    <aside class="w-64 bg-indigo-900 text-white flex flex-col shadow-xl z-20">
+        <div class="p-6 flex items-center space-x-3 border-b border-indigo-800">
+            <div class="bg-indigo-500 p-2 rounded-lg text-white">
+                <i class="fas fa-microscope text-xl"></i>
+            </div>
+            <h1 class="text-lg font-bold leading-tight">MPB<br><span class="text-sm font-normal text-indigo-300">Learning Portal</span></h1>
+        </div>
+        <nav class="flex-1 overflow-y-auto py-4">
+            <ul class="space-y-1">
+                <li>
+                    <button onclick="switchTab('syllabus')" id="tab-syllabus" class="w-full flex items-center space-x-3 px-6 py-3 text-sm font-medium tab-active transition-colors">
+                        <i class="fas fa-calendar-alt w-5 text-center"></i>
+                        <span>Silabus Kuliah</span>
+                    </button>
+                </li>
+                <li>
+                    <button onclick="switchTab('questionnaire')" id="tab-questionnaire" class="w-full flex items-center space-x-3 px-6 py-3 text-sm font-medium tab-inactive transition-colors">
+                        <i class="fas fa-clipboard-list w-5 text-center"></i>
+                        <span>Simulasi Kuesioner</span>
+                    </button>
+                </li>
+                <li>
+                    <button onclick="switchTab('dataset')" id="tab-dataset" class="w-full flex items-center space-x-3 px-6 py-3 text-sm font-medium tab-inactive transition-colors">
+                        <i class="fas fa-table w-5 text-center"></i>
+                        <span>Eksplorasi Dataset</span>
+                    </button>
+                </li>
+                <li>
+                    <button onclick="switchTab('library')" id="tab-library" class="w-full flex items-center space-x-3 px-6 py-3 text-sm font-medium tab-inactive transition-colors">
+                        <i class="fas fa-book-reader w-5 text-center"></i>
+                        <span>Konsep Riset</span>
+                    </button>
+                </li>
+            </ul>
+        </nav>
+        <div class="p-6 border-t border-indigo-800 text-xs text-indigo-400">
+            <p>01_Dataset_Latihan_MPB_P8-P12.xlsx</p>
+            <p class="mt-1">03_Kuesioner_Survei_Sintetis_MPB.docx</p>
+        </div>
+    </aside>
+
+    <!-- Main Content Area -->
+    <main class="flex-1 flex flex-col h-screen overflow-hidden bg-gray-50">
+        
+        <!-- Header -->
+        <header class="bg-white shadow-sm border-b px-8 py-4 flex justify-between items-center z-10">
+            <h2 id="page-title" class="text-2xl font-bold text-gray-800">Silabus Pembelajaran</h2>
+            <div class="flex items-center space-x-4 text-sm text-gray-500">
+                <span><i class="fas fa-user-graduate mr-2"></i>Mode Mahasiswa</span>
+            </div>
+        </header>
+
+        <!-- Dynamic Content Container -->
+        <div class="flex-1 overflow-y-auto p-8 custom-scrollbar relative" id="content-container">
+            
+            <!-- SECTION: SYLLABUS -->
+            <div id="sec-syllabus" class="space-y-6 max-w-5xl mx-auto">
+                <div class="bg-indigo-50 border border-indigo-100 p-4 rounded-xl mb-6 shadow-sm flex items-start space-x-4">
+                    <i class="fas fa-info-circle text-indigo-500 text-xl mt-0.5"></i>
+                    <div>
+                        <h3 class="font-semibold text-indigo-900">Perencanaan Pembelajaran (Pekan 8 - 14)</h3>
+                        <p class="text-sm text-indigo-700 mt-1">Jelajahi topik, tugas, dan bahan bacaan untuk pertemuan setelah UTS. Fokus pada pengolahan data, analisis statistik, dan penulisan laporan riset.</p>
+                    </div>
+                </div>
+                <div id="syllabus-container" class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                    <!-- Injected via JS -->
+                </div>
+            </div>
+
+            <!-- SECTION: QUESTIONNAIRE SIMULATOR -->
+            <div id="sec-questionnaire" class="hide h-full flex flex-col lg:flex-row gap-6">
+                
+                <!-- Form Area -->
+                <div class="flex-1 bg-white rounded-xl shadow-sm border p-6 overflow-y-auto custom-scrollbar">
+                    <div class="mb-6">
+                        <h3 class="text-xl font-bold text-gray-800 border-b pb-2">Instrumen Survei Sintetis</h3>
+                        <p class="text-sm text-gray-500 mt-2">Pilih jawaban di bawah ini untuk melihat bagaimana data mentah diubah menjadi skor variabel dalam dataset Anda.</p>
+                    </div>
+
+                    <form id="sim-form" class="space-y-8">
+                        <!-- Demographics -->
+                        <section>
+                            <h4 class="font-semibold text-indigo-800 bg-indigo-50 px-3 py-1 rounded inline-block mb-4">A. Profil (D1-D5)</h4>
+                            <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                                <div>
+                                    <label class="block text-sm font-medium text-gray-700 mb-1">D1 / USIA</label>
+                                    <input type="number" id="q-d1" class="w-full border-gray-300 rounded-md shadow-sm p-2 border focus:ring-indigo-500 focus:border-indigo-500" value="20">
+                                </div>
+                                <div>
+                                    <label class="block text-sm font-medium text-gray-700 mb-1">D5 / PENGHASILAN_KAT</label>
+                                    <select id="q-d5" class="w-full border-gray-300 rounded-md shadow-sm p-2 border focus:ring-indigo-500 focus:border-indigo-500">
+                                        <option value="1">&lt; Rp3 juta (1)</option>
+                                        <option value="2">Rp3–&lt;6 juta (2)</option>
+                                        <option value="3" selected>Rp6–&lt;10 juta (3)</option>
+                                        <option value="4">≥ Rp10 juta (4)</option>
+                                    </select>
+                                </div>
+                            </div>
+                        </section>
+
+                        <!-- Scales (Sample: TR, RK, IN) -->
+                        <section>
+                            <h4 class="font-semibold text-indigo-800 bg-indigo-50 px-3 py-1 rounded inline-block mb-4">B. Sikap & Persepsi (Skala 1-5)</h4>
+                            <div class="space-y-4">
+                                <div class="p-4 bg-gray-50 rounded-lg border">
+                                    <p class="text-sm font-medium text-gray-800 mb-3">TR1: Saya yakin transaksi berlangsung aman.</p>
+                                    <div class="flex space-x-4">
+                                        <label class="inline-flex items-center"><input type="radio" name="tr1" value="1" class="text-indigo-600 focus:ring-indigo-500"><span class="ml-2 text-sm">1</span></label>
+                                        <label class="inline-flex items-center"><input type="radio" name="tr1" value="2" class="text-indigo-600 focus:ring-indigo-500"><span class="ml-2 text-sm">2</span></label>
+                                        <label class="inline-flex items-center"><input type="radio" name="tr1" value="3" class="text-indigo-600 focus:ring-indigo-500"><span class="ml-2 text-sm">3</span></label>
+                                        <label class="inline-flex items-center"><input type="radio" name="tr1" value="4" checked class="text-indigo-600 focus:ring-indigo-500"><span class="ml-2 text-sm">4</span></label>
+                                        <label class="inline-flex items-center"><input type="radio" name="tr1" value="5" class="text-indigo-600 focus:ring-indigo-500"><span class="ml-2 text-sm">5</span></label>
+                                    </div>
+                                </div>
+                                <div class="p-4 bg-gray-50 rounded-lg border">
+                                    <p class="text-sm font-medium text-gray-800 mb-3">TR2: Saya percaya penyedia layanan menjaga kerahasiaan.</p>
+                                    <div class="flex space-x-4">
+                                        <label class="inline-flex items-center"><input type="radio" name="tr2" value="1" class="text-indigo-600 focus:ring-indigo-500"><span class="ml-2 text-sm">1</span></label>
+                                        <label class="inline-flex items-center"><input type="radio" name="tr2" value="2" class="text-indigo-600 focus:ring-indigo-500"><span class="ml-2 text-sm">2</span></label>
+                                        <label class="inline-flex items-center"><input type="radio" name="tr2" value="3" class="text-indigo-600 focus:ring-indigo-500"><span class="ml-2 text-sm">3</span></label>
+                                        <label class="inline-flex items-center"><input type="radio" name="tr2" value="4" checked class="text-indigo-600 focus:ring-indigo-500"><span class="ml-2 text-sm">4</span></label>
+                                        <label class="inline-flex items-center"><input type="radio" name="tr2" value="5" class="text-indigo-600 focus:ring-indigo-500"><span class="ml-2 text-sm">5</span></label>
+                                    </div>
+                                </div>
+                                <div class="p-4 bg-gray-50 rounded-lg border">
+                                    <p class="text-sm font-medium text-gray-800 mb-1">RK3 (Reverse): Saya merasa data pribadi saya terlindungi.</p>
+                                    <p class="text-xs text-red-500 mb-3 italic">Catatan Dosen: Butir positif, untuk menghitung skor RK (Risiko Tinggi), gunakan 6 - RK3.</p>
+                                    <div class="flex space-x-4">
+                                        <label class="inline-flex items-center"><input type="radio" name="rk3" value="1" class="text-indigo-600 focus:ring-indigo-500"><span class="ml-2 text-sm">1</span></label>
+                                        <label class="inline-flex items-center"><input type="radio" name="rk3" value="2" class="text-indigo-600 focus:ring-indigo-500"><span class="ml-2 text-sm">2</span></label>
+                                        <label class="inline-flex items-center"><input type="radio" name="rk3" value="3" class="text-indigo-600 focus:ring-indigo-500"><span class="ml-2 text-sm">3</span></label>
+                                        <label class="inline-flex items-center"><input type="radio" name="rk3" value="4" checked class="text-indigo-600 focus:ring-indigo-500"><span class="ml-2 text-sm">4</span></label>
+                                        <label class="inline-flex items-center"><input type="radio" name="rk3" value="5" class="text-indigo-600 focus:ring-indigo-500"><span class="ml-2 text-sm">5</span></label>
+                                    </div>
+                                </div>
+                                <div class="p-4 bg-gray-50 rounded-lg border">
+                                    <p class="text-sm font-medium text-gray-800 mb-3">IN1: Saya berencana menggunakan dlm 3 bln mendatang.</p>
+                                    <div class="flex space-x-4">
+                                        <label class="inline-flex items-center"><input type="radio" name="in1" value="1" class="text-indigo-600 focus:ring-indigo-500"><span class="ml-2 text-sm">1</span></label>
+                                        <label class="inline-flex items-center"><input type="radio" name="in1" value="2" class="text-indigo-600 focus:ring-indigo-500"><span class="ml-2 text-sm">2</span></label>
+                                        <label class="inline-flex items-center"><input type="radio" name="in1" value="3" class="text-indigo-600 focus:ring-indigo-500"><span class="ml-2 text-sm">3</span></label>
+                                        <label class="inline-flex items-center"><input type="radio" name="in1" value="4" class="text-indigo-600 focus:ring-indigo-500"><span class="ml-2 text-sm">4</span></label>
+                                        <label class="inline-flex items-center"><input type="radio" name="in1" value="5" checked class="text-indigo-600 focus:ring-indigo-500"><span class="ml-2 text-sm">5</span></label>
+                                    </div>
+                                </div>
+                            </div>
+                        </section>
+
+                        <!-- Financial Literacy -->
+                        <section>
+                            <h4 class="font-semibold text-indigo-800 bg-indigo-50 px-3 py-1 rounded inline-block mb-4">C. Literasi Keuangan (FL)</h4>
+                            <div class="space-y-4">
+                                <div class="p-4 bg-gray-50 rounded-lg border">
+                                    <p class="text-sm font-medium text-gray-800 mb-3">FL2: Biaya transfer dapat memengaruhi total pengeluaran transaksi. (Kunci: Benar = 1)</p>
+                                    <div class="flex space-x-4">
+                                        <label class="inline-flex items-center"><input type="radio" name="fl2" value="1" checked class="text-indigo-600 focus:ring-indigo-500"><span class="ml-2 text-sm">Benar</span></label>
+                                        <label class="inline-flex items-center"><input type="radio" name="fl2" value="0" class="text-indigo-600 focus:ring-indigo-500"><span class="ml-2 text-sm">Salah</span></label>
+                                    </div>
+                                </div>
+                            </div>
+                        </section>
+                    </form>
+                </div>
+
+                <!-- Live Data Panel -->
+                <div class="w-full lg:w-96 bg-gray-800 text-white rounded-xl shadow-lg p-6 flex flex-col relative">
+                    <div class="absolute top-0 right-0 p-4 opacity-10 pointer-events-none">
+                        <i class="fas fa-database text-6xl"></i>
+                    </div>
+                    <h3 class="text-lg font-bold text-indigo-300 border-b border-gray-700 pb-2 mb-4">Data Transformation Live</h3>
+                    <p class="text-xs text-gray-400 mb-6">Inilah wujud baris data pada Excel berdasarkan input Anda, siap untuk diuji secara statistik.</p>
+                    
+                    <div class="space-y-4 font-mono text-sm flex-1">
+                        <div class="flex justify-between border-b border-gray-700 pb-1">
+                            <span class="text-gray-400">RESP_ID:</span>
+                            <span class="text-green-400">ID-001</span>
+                        </div>
+                        <div class="flex justify-between border-b border-gray-700 pb-1">
+                            <span class="text-gray-400">USIA:</span>
+                            <span id="out-usia" class="text-yellow-400">20</span>
+                        </div>
+                        <div class="flex justify-between border-b border-gray-700 pb-1">
+                            <span class="text-gray-400">INCOME_HIGH:</span>
+                            <span id="out-income" class="text-yellow-400">1</span>
+                        </div>
+                        <div class="flex justify-between border-b border-gray-700 pb-1">
+                            <span class="text-gray-400">TR_SKOR:</span>
+                            <span id="out-tr" class="text-blue-400">4.00</span>
+                        </div>
+                        <div class="flex justify-between border-b border-gray-700 pb-1 relative group">
+                            <span class="text-gray-400 cursor-help border-b border-dashed border-gray-500">RK_SKOR (via RK3):</span>
+                            <span id="out-rk" class="text-blue-400">2.00</span>
+                            <!-- Tooltip -->
+                            <div class="absolute z-10 w-48 p-2 bg-gray-900 rounded text-xs text-white -top-10 right-0 hidden group-hover:block shadow-xl border border-gray-700">
+                                Dihitung dengan rumus: 6 - Nilai RK3
+                            </div>
+                        </div>
+                        <div class="flex justify-between border-b border-gray-700 pb-1">
+                            <span class="text-gray-400">IN_SKOR:</span>
+                            <span id="out-in" class="text-blue-400">5.00</span>
+                        </div>
+                        <div class="flex justify-between border-b border-gray-700 pb-1 relative group">
+                            <span class="text-gray-400 cursor-help border-b border-dashed border-gray-500">INTENSI_TINGGI:</span>
+                            <span id="out-int-tinggi" class="text-purple-400">1</span>
+                             <div class="absolute z-10 w-48 p-2 bg-gray-900 rounded text-xs text-white -top-10 right-0 hidden group-hover:block shadow-xl border border-gray-700">
+                                1 jika IN_SKOR ≥ 4, 0 jika tidak.
+                            </div>
+                        </div>
+                        <div class="flex justify-between border-b border-gray-700 pb-1">
+                            <span class="text-gray-400">FL_SKOR:</span>
+                            <span id="out-fl" class="text-blue-400">1</span>
+                        </div>
+                    </div>
+
+                    <div class="mt-6 bg-gray-900 rounded p-3 text-xs border border-gray-700">
+                        <p class="text-indigo-400 font-bold mb-1"><i class="fas fa-lightbulb mr-1"></i>Aplikasi Riset:</p>
+                        <p class="text-gray-300">Variabel ini akan digunakan dalam SPSS/Jamovi untuk pengujian seperti Regresi (IN_SKOR dependen) atau Independent T-Test (INCOME_HIGH).</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- SECTION: DATASET EXPLORER -->
+            <div id="sec-dataset" class="hide h-full flex flex-col space-y-4">
+                <div class="bg-white p-6 rounded-xl shadow-sm border border-gray-200">
+                    <div class="flex justify-between items-center mb-4">
+                        <div>
+                            <h3 class="text-lg font-bold text-gray-800"><i class="fas fa-file-excel text-green-600 mr-2"></i>01_Dataset_Latihan_MPB_P8-P12.xlsx</h3>
+                            <p class="text-sm text-gray-500">Pratinjau Dataset Sintetis untuk Analisis Statistik Dasar hingga Multivariat (Pekan 8-12)</p>
+                        </div>
+                        <button class="bg-indigo-600 hover:bg-indigo-700 text-white px-4 py-2 rounded shadow-sm text-sm font-medium transition-colors">
+                            <i class="fas fa-download mr-2"></i>Download Dataset
+                        </button>
+                    </div>
+                    
+                    <div class="overflow-x-auto border rounded-lg max-h-64 custom-scrollbar">
+                        <table class="min-w-full text-sm text-left whitespace-nowrap">
+                            <thead class="bg-gray-100 text-gray-700 font-semibold border-b sticky top-0 z-10">
+                                <tr>
+                                    <th class="px-4 py-3">RESP_ID</th>
+                                    <th class="px-4 py-3 text-center">USIA</th>
+                                    <th class="px-4 py-3 text-center">JENIS_KELAMIN</th>
+                                    <th class="px-4 py-3 text-center">PENGHASILAN_KAT</th>
+                                    <th class="px-4 py-3 text-center">INCOME_HIGH</th>
+                                    <th class="px-4 py-3 text-center text-indigo-700">TR_SKOR</th>
+                                    <th class="px-4 py-3 text-center text-indigo-700">RK_SKOR</th>
+                                    <th class="px-4 py-3 text-center text-indigo-700">IN_SKOR</th>
+                                    <th class="px-4 py-3 text-center text-purple-700">INTENSI_TINGGI</th>
+                                    <th class="px-4 py-3 text-center text-green-700">FL_SKOR</th>
+                                </tr>
+                            </thead>
+                            <tbody class="divide-y divide-gray-200">
+                                <tr class="hover:bg-gray-50">
+                                    <td class="px-4 py-2 font-mono">ID-001</td><td class="px-4 py-2 text-center">21</td><td class="px-4 py-2 text-center">Perempuan</td><td class="px-4 py-2 text-center">2</td><td class="px-4 py-2 text-center">0</td><td class="px-4 py-2 text-center font-semibold">4.33</td><td class="px-4 py-2 text-center font-semibold">2.67</td><td class="px-4 py-2 text-center font-semibold">4.00</td><td class="px-4 py-2 text-center text-white bg-purple-500 rounded">1</td><td class="px-4 py-2 text-center font-semibold">2</td>
+                                </tr>
+                                <tr class="hover:bg-gray-50">
+                                    <td class="px-4 py-2 font-mono">ID-002</td><td class="px-4 py-2 text-center">24</td><td class="px-4 py-2 text-center">Laki-laki</td><td class="px-4 py-2 text-center">3</td><td class="px-4 py-2 text-center">1</td><td class="px-4 py-2 text-center font-semibold">3.00</td><td class="px-4 py-2 text-center font-semibold">4.33</td><td class="px-4 py-2 text-center font-semibold">2.33</td><td class="px-4 py-2 text-center text-gray-500 bg-gray-100 rounded">0</td><td class="px-4 py-2 text-center font-semibold">3</td>
+                                </tr>
+                                <tr class="hover:bg-gray-50">
+                                    <td class="px-4 py-2 font-mono">ID-003</td><td class="px-4 py-2 text-center">19</td><td class="px-4 py-2 text-center">Laki-laki</td><td class="px-4 py-2 text-center">1</td><td class="px-4 py-2 text-center">0</td><td class="px-4 py-2 text-center font-semibold">4.67</td><td class="px-4 py-2 text-center font-semibold">1.67</td><td class="px-4 py-2 text-center font-semibold">4.67</td><td class="px-4 py-2 text-center text-white bg-purple-500 rounded">1</td><td class="px-4 py-2 text-center font-semibold">1</td>
+                                </tr>
+                                <tr class="hover:bg-gray-50">
+                                    <td class="px-4 py-2 font-mono">ID-004</td><td class="px-4 py-2 text-center">22</td><td class="px-4 py-2 text-center">Perempuan</td><td class="px-4 py-2 text-center">4</td><td class="px-4 py-2 text-center">1</td><td class="px-4 py-2 text-center font-semibold">3.67</td><td class="px-4 py-2 text-center font-semibold">3.33</td><td class="px-4 py-2 text-center font-semibold">3.67</td><td class="px-4 py-2 text-center text-gray-500 bg-gray-100 rounded">0</td><td class="px-4 py-2 text-center font-semibold">2</td>
+                                </tr>
+                                <tr class="hover:bg-gray-50">
+                                    <td class="px-4 py-2 font-mono">ID-005</td><td class="px-4 py-2 text-center">20</td><td class="px-4 py-2 text-center">Perempuan</td><td class="px-4 py-2 text-center">3</td><td class="px-4 py-2 text-center">1</td><td class="px-4 py-2 text-center font-semibold">4.00</td><td class="px-4 py-2 text-center font-semibold">2.00</td><td class="px-4 py-2 text-center font-semibold">5.00</td><td class="px-4 py-2 text-center text-white bg-purple-500 rounded">1</td><td class="px-4 py-2 text-center font-semibold">3</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+
+                <!-- Data Visualization Section -->
+                <div class="bg-white p-6 rounded-xl shadow-sm border border-gray-200 mt-4">
+                    <h4 class="font-bold text-gray-800 mb-4 border-b pb-2"><i class="fas fa-chart-line text-indigo-600 mr-2"></i>Visualisasi & Eksplorasi Data Interaktif</h4>
+                    <p class="text-sm text-gray-500 mb-4">Gunakan alat di bawah ini untuk mensimulasikan hasil analisis bivariat (Pekan 10-11). Ubah variabel untuk melihat pola, atau klik tombol Ide Eksplorasi jika Anda butuh panduan.</p>
+
+                    <div class="flex flex-col lg:flex-row gap-6">
+                        <!-- Controls & Examples -->
+                        <div class="w-full lg:w-1/3 space-y-4">
+                            
+                            <div class="bg-indigo-50 p-4 rounded-lg border border-indigo-100">
+                                <h5 class="text-sm font-bold text-indigo-800 mb-3"><i class="fas fa-magic mr-2"></i>Ide Eksplorasi (Klik!)</h5>
+                                <div class="space-y-2">
+                                    <button onclick="applyPreset('scatter', 'tr', 'in')" class="w-full text-left text-xs bg-white hover:bg-indigo-100 text-indigo-800 py-2 px-3 rounded shadow-sm border border-indigo-200 transition font-medium">
+                                        📈 Korelasi Kepercayaan & Intensi
+                                    </button>
+                                    <button onclick="applyPreset('bar', 'inc_high', 'in')" class="w-full text-left text-xs bg-white hover:bg-indigo-100 text-indigo-800 py-2 px-3 rounded shadow-sm border border-indigo-200 transition font-medium">
+                                        📊 T-Test Intensi vs Income Tinggi
+                                    </button>
+                                    <button onclick="applyPreset('scatter', 'rk', 'in')" class="w-full text-left text-xs bg-white hover:bg-indigo-100 text-indigo-800 py-2 px-3 rounded shadow-sm border border-indigo-200 transition font-medium">
+                                        📉 Regresi Risiko terhadap Intensi
+                                    </button>
+                                </div>
+                            </div>
+
+                            <div class="bg-gray-50 p-4 rounded-lg border">
+                                <h5 class="text-sm font-semibold text-gray-700 mb-3">Manipulasi Manual</h5>
+                                <div class="space-y-3">
+                                    <div>
+                                        <label class="block text-xs font-medium text-gray-500 mb-1">Tipe Analisis Visual</label>
+                                        <select id="chart-type" class="w-full text-sm border-gray-300 rounded-md p-2 border focus:ring-indigo-500 focus:border-indigo-500">
+                                            <option value="scatter">Scatter Plot (Sebaran/Korelasi)</option>
+                                            <option value="bar">Bar Chart (Perbandingan Rata-rata)</option>
+                                        </select>
+                                    </div>
+                                    <div>
+                                        <label class="block text-xs font-medium text-gray-500 mb-1">Sumbu X (Independen/Grup)</label>
+                                        <select id="chart-x" class="w-full text-sm border-gray-300 rounded-md p-2 border focus:ring-indigo-500 focus:border-indigo-500">
+                                            <option value="tr">TR_SKOR (Skor Kepercayaan)</option>
+                                            <option value="rk">RK_SKOR (Skor Risiko)</option>
+                                            <option value="inc_high">INCOME_HIGH (Grup Penghasilan)</option>
+                                        </select>
+                                    </div>
+                                    <div>
+                                        <label class="block text-xs font-medium text-gray-500 mb-1">Sumbu Y (Dependen)</label>
+                                        <select id="chart-y" class="w-full text-sm border-gray-300 rounded-md p-2 border focus:ring-indigo-500 focus:border-indigo-500">
+                                            <option value="in">IN_SKOR (Skor Intensi)</option>
+                                            <option value="tr">TR_SKOR (Skor Kepercayaan)</option>
+                                        </select>
+                                    </div>
+                                </div>
+                            </div>
+                            
+                        </div>
+                        
+                        <!-- Chart Canvas -->
+                        <div class="w-full lg:w-2/3 flex flex-col">
+                            <div class="h-64 relative flex-1 bg-white rounded-lg border border-gray-200 p-4">
+                                <canvas id="insightChart"></canvas>
+                            </div>
+                            <div id="chart-interpretation" class="mt-4 p-3 bg-blue-50 border border-blue-200 rounded-lg text-sm text-blue-900 hidden">
+                                <!-- Interpretation text injected here -->
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- SECTION: KNOWLEDGE LIBRARY -->
+            <div id="sec-library" class="hide max-w-4xl mx-auto">
+                <div class="mb-6">
+                    <h2 class="text-2xl font-bold text-gray-800">Perpustakaan Konsep</h2>
+                    <p class="text-gray-500">Ringkasan Literatur Metode Penelitian Bisnis (Creswell, Sekaran, Zikmund) berdasarkan silabus mingguan.</p>
+                </div>
+
+                <div id="library-container">
+                    <!-- Injected via JS -->
+                </div>
+            </div>
+
+        </div>
+    </main>
+
+    <script>
+        // Data Silabus MPB
+        const syllabusData = [
+            { week: "8", title: "Basic Data Analysis: Descriptive Statistics", content: "Tabulation, cross-tabulation, data transformation, interpretation.", tasks: "Pitching research matters certificate. Presentasi Kel. 1.", books: "ZWG Chp 20; Cooper 16; Sekaran 15" },
+            { week: "9", title: "Univariate Statistical Analysis", content: "Hypothesis testing, T-distribution, Chi-square test.", tasks: "Presentasi Kel. 2.", books: "ZWG 21; Cooper 17; Sekaran 16" },
+            { week: "10", title: "Bivariate Statistical Analysis", content: "Cross-tabs, t-test, z-test, ANOVA. Measures of association: Correlation & Regression.", tasks: "Presentasi Kel. 3, Progress TA.", books: "ZWG 22; Cooper 18; Sekaran 16" },
+            { week: "11", title: "Multivariate Statistical Analysis", content: "Dependence/Interdependence techniques, Multiple regression, Factor/Cluster analysis.", tasks: "Presentasi Kel. 4, Progress Univariate.", books: "ZWG 24; Sekaran 16" },
+            { week: "12", title: "Analyzing, Findings, and Conclusions", content: "Membuat kesimpulan, menyusun Business Research Report.", tasks: "Presentasi Kel. 5, Quiz, Progress TA (Bivariate).", books: "CS 19, 20" },
+            { week: "13", title: "Menyusun Business Research Report", content: "Review cara pelaporan riset bisnis yang efektif.", tasks: "Presentasi Kel. 6, Progress Analysis TA.", books: "Sekaran 17; Zikmund 25" },
+            { week: "14", title: "Group Final Presentation", content: "Evaluasi akhir riset.", tasks: "Presentasi 6 kelompok hasil tugas akhir.", books: "-" }
+        ];
+
+        // Data Perpustakaan Konsep
+        const libraryData = [
+            {
+                week: "Pekan 8: Basic Data Analysis",
+                concepts: [
+                    { title: "Statistik Deskriptif", content: "Metode yang berkaitan dengan pengumpulan dan penyajian suatu gugus data sehingga memberikan informasi yang berguna (contoh: Mean, Median, Modus, Frekuensi)." },
+                    { title: "Transformasi Data", content: "Proses mengubah data dari satu format ke format lain, misalnya menghitung skor rata-rata (mean) dari beberapa butir pertanyaan kuesioner untuk membentuk satu skor variabel agregat." }
+                ]
+            },
+            {
+                week: "Pekan 9: Univariate Statistical Analysis",
+                concepts: [
+                    { title: "Analisis Univariat", content: "Pemeriksaan atas setiap variabel secara terpisah. Tujuannya adalah untuk mendeskripsikan data dan menemukan pola dasar dalam satu variabel independen atau dependen." },
+                    { title: "Uji Hipotesis (One-Sample)", content: "Prosedur pengambilan keputusan berdasarkan data sampel, misalnya menggunakan One-Sample T-Test atau Z-Test untuk menguji apakah rata-rata sampel representatif terhadap asumsi populasi." }
+                ]
+            },
+            {
+                week: "Pekan 10: Bivariate Statistical Analysis",
+                concepts: [
+                    { title: "Analisis Bivariat & Korelasi", content: "Analisis yang melibatkan dua variabel untuk menentukan signifikansi hubungan empiris di antara keduanya. Korelasi Pearson mengukur kekuatan dan arah hubungan linear." },
+                    { title: "Independent Samples T-Test", content: "Uji statistik parametrik untuk membandingkan rata-rata dari dua kelompok independen (contoh: membedakan rata-rata niat beli antara kelompok income tinggi vs rendah)." }
+                ]
+            },
+            {
+                week: "Pekan 11: Multivariate Statistical Analysis",
+                concepts: [
+                    { title: "Analisis Multivariat", content: "Keluarga metode statistik yang secara simultan menganalisis lebih dari dua variabel (contoh: beberapa variabel independen terhadap dependen)." },
+                    { title: "Multiple Regression (Regresi Berganda)", content: "Teknik memodelkan hubungan linear antara satu variabel dependen kontinyu dengan dua atau lebih variabel independen." }
+                ]
+            },
+            {
+                week: "Pekan 12-14: Reporting & Conclusion",
+                concepts: [
+                    { title: "Sintesis & Kesimpulan", content: "Menerjemahkan temuan statistik berupa 'angka' menjadi makna manajerial yang menjawab fenomena atau masalah bisnis di awal." },
+                    { title: "Business Research Report", content: "Format laporan akhir terstruktur meliputi: Executive Summary, Pendahuluan, Tinjauan Literatur, Metodologi, Hasil Analisis, Kesimpulan, dan Rekomendasi." }
+                ]
+            }
+        ];
+
+        // Render Library
+        const libraryContainer = document.getElementById('library-container');
+        libraryData.forEach((section, secIdx) => {
+            const sectionDiv = document.createElement('div');
+            sectionDiv.className = "mb-8";
+            
+            let conceptsHtml = '';
+            section.concepts.forEach((concept, conceptIdx) => {
+                conceptsHtml += `
+                    <div class="bg-white rounded-lg shadow-sm border border-gray-200 overflow-hidden mt-3">
+                        <button class="w-full px-6 py-4 text-left font-bold text-gray-800 bg-gray-50 hover:bg-gray-100 focus:outline-none border-b flex justify-between items-center concept-toggle">
+                            ${concept.title}
+                            <i class="fas fa-chevron-down text-gray-400"></i>
+                        </button>
+                        <div class="p-6 text-gray-600 text-sm leading-relaxed concept-content hidden">
+                            <p>${concept.content}</p>
+                        </div>
+                    </div>
+                `;
+            });
+
+            sectionDiv.innerHTML = `
+                <h3 class="text-xl font-bold text-indigo-900 border-b-2 border-indigo-200 pb-2 mb-4">${section.week}</h3>
+                <div class="space-y-3">
+                    ${conceptsHtml}
+                </div>
+            `;
+            libraryContainer.appendChild(sectionDiv);
+        });
+
+        // Render Syllabus
+        const syllabusContainer = document.getElementById('syllabus-container');
+        syllabusData.forEach(item => {
+            const isUTS = item.week === "UTS";
+            const card = document.createElement('div');
+            card.className = `p-5 rounded-xl border ${isUTS ? 'bg-indigo-600 text-white border-indigo-700 shadow-md' : 'bg-white border-gray-200 shadow-sm hover:shadow-md'} transition-shadow`;
+            
+            card.innerHTML = `
+                <div class="flex items-center space-x-3 mb-3 border-b ${isUTS ? 'border-indigo-400' : 'border-gray-100'} pb-2">
+                    <span class="${isUTS ? 'bg-yellow-400 text-indigo-900' : 'bg-indigo-100 text-indigo-800'} text-xs font-bold px-2 py-1 rounded-full uppercase tracking-wider">
+                        ${isUTS ? 'Ujian' : 'Pekan ' + item.week}
+                    </span>
+                    <h4 class="font-bold ${isUTS ? 'text-white' : 'text-gray-800'} leading-tight flex-1">${item.title}</h4>
+                </div>
+                <div class="space-y-3 text-sm">
+                    <p class="${isUTS ? 'text-indigo-100' : 'text-gray-600'}">
+                        ${item.content}
+                    </p>
+                    <div class="bg-black bg-opacity-5 p-3 rounded-lg">
+                        <div class="flex items-start mb-2">
+                            <i class="fas fa-tasks mt-1 mr-2 ${isUTS ? 'text-yellow-300' : 'text-indigo-500'}"></i>
+                            <span class="${isUTS ? 'text-white' : 'text-gray-700'}">${item.tasks}</span>
+                        </div>
+                        <div class="flex items-start">
+                            <i class="fas fa-book mt-1 mr-2 ${isUTS ? 'text-yellow-300' : 'text-indigo-500'}"></i>
+                            <span class="${isUTS ? 'text-white' : 'text-gray-700'} text-xs font-medium">${item.books}</span>
+                        </div>
+                    </div>
+                </div>
+            `;
+            syllabusContainer.appendChild(card);
+        });
+
+        // Tab Navigation
+        const tabs = ['syllabus', 'questionnaire', 'dataset', 'library'];
+        const titles = {
+            'syllabus': 'Silabus Pembelajaran',
+            'questionnaire': 'Simulasi Kuesioner (Transformasi Data)',
+            'dataset': 'Eksplorasi Dataset',
+            'library': 'Perpustakaan Konsep Riset'
+        };
+
+        function switchTab(activeTab) {
+            tabs.forEach(tab => {
+                const btn = document.getElementById(`tab-${tab}`);
+                const sec = document.getElementById(`sec-${tab}`);
+                
+                if(tab === activeTab) {
+                    btn.classList.add('tab-active');
+                    btn.classList.remove('tab-inactive');
+                    sec.classList.remove('hide');
+                    document.getElementById('page-title').innerText = titles[tab];
+                    
+                    // Render chart when dataset tab is opened (to avoid canvas zero-height issue)
+                    if(tab === 'dataset') {
+                        setTimeout(renderChart, 100);
+                    }
+                } else {
+                    btn.classList.remove('tab-active');
+                    btn.classList.add('tab-inactive');
+                    sec.classList.add('hide');
+                }
+            });
+        }
+
+        // Library Accordions Event Delegation
+        document.getElementById('library-container').addEventListener('click', function(e) {
+            const btn = e.target.closest('.concept-toggle');
+            if (btn) {
+                const content = btn.nextElementSibling;
+                const icon = btn.querySelector('i');
+                content.classList.toggle('hidden');
+                icon.classList.toggle('fa-chevron-down');
+                icon.classList.toggle('fa-chevron-up');
+            }
+        });
+
+        // Form Simulator Logic
+        const form = document.getElementById('sim-form');
+        const getVal = (name) => parseInt(document.querySelector(`input[name="${name}"]:checked`)?.value || 0);
+        const getNumVal = (id) => parseFloat(document.getElementById(id).value || 0);
+
+        function calculateScores() {
+            // Profile
+            const usia = getNumVal('q-d1');
+            const d5_kat = getNumVal('q-d5');
+            const incomeHigh = (d5_kat >= 3) ? 1 : 0;
+            
+            // TR (Trust)
+            const tr1 = getVal('tr1');
+            const tr2 = getVal('tr2');
+            const trSkor = ((tr1 + tr2) / 2).toFixed(2);
+
+            // RK (Risk) - Note RK3 is reverse coded based on docx rules: 6 - RK3
+            const rk3 = getVal('rk3');
+            const rkSkor = (rk3 > 0) ? (6 - rk3).toFixed(2) : "0.00"; // Simplified for 1 question mock
+
+            // IN (Intention)
+            const in1 = getVal('in1');
+            const inSkor = in1.toFixed(2);
+            const intensiTinggi = (in1 >= 4) ? 1 : 0;
+
+            // FL (Financial Lit)
+            const fl2 = getVal('fl2');
+
+            // Update UI
+            document.getElementById('out-usia').innerText = usia;
+            document.getElementById('out-income').innerText = incomeHigh;
+            document.getElementById('out-tr').innerText = trSkor;
+            document.getElementById('out-rk').innerText = rkSkor;
+            document.getElementById('out-in').innerText = inSkor;
+            document.getElementById('out-int-tinggi').innerText = intensiTinggi;
+            document.getElementById('out-fl').innerText = fl2;
+        }
+
+        form.addEventListener('input', calculateScores);
+        // Initial Calculation
+        calculateScores();
+
+        // --- Data Visualization Logic ---
+        const chartData = [
+            { id: "ID-001", tr: 4.33, rk: 2.67, in: 4.00, inc_high: 0 },
+            { id: "ID-002", tr: 3.00, rk: 4.33, in: 2.33, inc_high: 1 },
+            { id: "ID-003", tr: 4.67, rk: 1.67, in: 4.67, inc_high: 0 },
+            { id: "ID-004", tr: 3.67, rk: 3.33, in: 3.67, inc_high: 1 },
+            { id: "ID-005", tr: 4.00, rk: 2.00, in: 5.00, inc_high: 1 },
+            // Extra simulated data to make charts look better
+            { id: "ID-006", tr: 3.33, rk: 3.67, in: 2.67, inc_high: 0 },
+            { id: "ID-007", tr: 4.33, rk: 2.33, in: 4.33, inc_high: 0 },
+            { id: "ID-008", tr: 3.00, rk: 4.00, in: 2.00, inc_high: 1 },
+            { id: "ID-009", tr: 3.67, rk: 2.67, in: 3.33, inc_high: 1 },
+            { id: "ID-010", tr: 4.00, rk: 2.33, in: 4.33, inc_high: 0 },
+            { id: "ID-011", tr: 4.67, rk: 1.33, in: 5.00, inc_high: 0 },
+            { id: "ID-012", tr: 2.67, rk: 4.67, in: 1.67, inc_high: 1 }
+        ];
+
+        let myChart = null;
+
+        function renderChart() {
+            const type = document.getElementById('chart-type').value;
+            const xVar = document.getElementById('chart-x').value;
+            const yVar = document.getElementById('chart-y').value;
+            const ctx = document.getElementById('insightChart').getContext('2d');
+            const interpretationDiv = document.getElementById('chart-interpretation');
+
+            if (myChart) myChart.destroy();
+
+            let dataSets = [];
+            let interpText = "";
+
+            if (type === 'scatter') {
+                const scatterPoints = chartData.map(d => ({ x: d[xVar], y: d[yVar] }));
+                dataSets = [{
+                    label: `${yVar.toUpperCase()} vs ${xVar.toUpperCase()}`,
+                    data: scatterPoints,
+                    backgroundColor: 'rgba(79, 70, 229, 0.7)',
+                    borderColor: 'rgba(49, 46, 129, 1)',
+                    borderWidth: 1,
+                    pointRadius: 6,
+                    pointHoverRadius: 8
+                }];
+                
+                if (xVar === 'tr' && yVar === 'in') {
+                    interpText = "<strong>Analisis Korelasi/Regresi:</strong> Pola titik yang naik ke kanan atas menunjukkan <em>korelasi positif</em>. Artinya, semakin tinggi Kepercayaan (TR), semakin tinggi pula Niat/Intensi (IN) responden.";
+                } else if (xVar === 'rk' && yVar === 'in') {
+                    interpText = "<strong>Analisis Korelasi/Regresi:</strong> Pola titik yang turun ke kanan bawah menunjukkan <em>korelasi negatif</em>. Artinya, semakin tinggi persepsi Risiko (RK), niat/intensi (IN) cenderung menurun.";
+                } else {
+                    interpText = `Menampilkan sebaran antara ${xVar.toUpperCase()} dan ${yVar.toUpperCase()}.`;
+                }
+
+                myChart = new Chart(ctx, {
+                    type: 'scatter',
+                    data: { datasets: dataSets },
+                    options: {
+                        responsive: true, maintainAspectRatio: false,
+                        plugins: { legend: { display: false } },
+                        scales: {
+                            x: { title: { display: true, text: xVar.toUpperCase() } },
+                            y: { title: { display: true, text: yVar.toUpperCase() } }
+                        }
+                    }
+                });
+            } else if (type === 'bar') {
+                const groups = {};
+                chartData.forEach(d => {
+                    const g = d[xVar];
+                    if(!groups[g]) groups[g] = [];
+                    groups[g].push(d[yVar]);
+                });
+                
+                const labels = Object.keys(groups).sort();
+                const averages = labels.map(l => {
+                    const sum = groups[l].reduce((a,b) => a+b, 0);
+                    return sum / groups[l].length;
+                });
+
+                let displayLabels = labels;
+                if(xVar === 'inc_high') {
+                    displayLabels = labels.map(l => l == '1' ? 'Income Tinggi' : 'Income Rendah');
+                    interpText = "<strong>Uji Beda (T-Test):</strong> Grafik batang ini membandingkan nilai rata-rata antar grup. Dalam SPSS, Anda akan menggunakan Independent Samples T-Test untuk melihat apakah selisih rata-rata ini signifikan secara statistik.";
+                } else {
+                    interpText = `Membandingkan rata-rata ${yVar.toUpperCase()} pada berbagai tingkat ${xVar.toUpperCase()}.`;
+                }
+
+                dataSets = [{
+                    label: `Rata-rata ${yVar.toUpperCase()}`,
+                    data: averages,
+                    backgroundColor: 'rgba(16, 185, 129, 0.7)',
+                    borderColor: 'rgba(6, 95, 70, 1)',
+                    borderWidth: 1
+                }];
+
+                myChart = new Chart(ctx, {
+                    type: 'bar',
+                    data: { labels: displayLabels, datasets: dataSets },
+                    options: {
+                        responsive: true, maintainAspectRatio: false,
+                        plugins: { legend: { display: false } },
+                        scales: {
+                            y: { beginAtZero: true, title: { display: true, text: `Rata-rata ${yVar.toUpperCase()}` } },
+                            x: { title: { display: true, text: xVar.toUpperCase() } }
+                        }
+                    }
+                });
+            }
+
+            interpretationDiv.innerHTML = interpText;
+            interpretationDiv.classList.remove('hidden');
+        }
+
+        function applyPreset(type, x, y) {
+            document.getElementById('chart-type').value = type;
+            document.getElementById('chart-x').value = x;
+            document.getElementById('chart-y').value = y;
+            renderChart();
+        }
+
+        // Add listeners for manual manipulation
+        document.getElementById('chart-type').addEventListener('change', renderChart);
+        document.getElementById('chart-x').addEventListener('change', renderChart);
+        document.getElementById('chart-y').addEventListener('change', renderChart);
+
+    </script>
+</body>
+</html>
